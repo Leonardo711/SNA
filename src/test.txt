@@ -1,0 +1,4 @@
+fdate,fuin_md5,fpoi_id,fcountry,fcountry_id,fprovince,fprovince_id,fcity,fcity_id,fregion,fregion_id
+
+20160331,dff51d78d6819fa11ada5339ce70de78,11738443802649002500,中国,1,广东省,440000,广州市,440100,海珠区,440105
+
