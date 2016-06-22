@@ -144,7 +144,7 @@ class entroySimilarity(object):
         entroy_B = entroy(dict_b)
         entroy_AB = entroy(sum_dict(dict_a, dict_b))
         return 2 * entroy_AB - entroy_A - entroy_B
-   def similarity(self):
+   def sim_set(self):
         sim_set = []
         for date in LbsDict:
             sim_set.append(self.dailySimilarity(self.usra, self.usrb, date))
