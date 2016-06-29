@@ -1,12 +1,23 @@
-Graph is a very intuitive representation of many datasets,
-communities are informally defined as sets of vertexs which are densely connected but scarcely connected to the rest of the  graph,
-community detection is an important task that allow  to discovery the structure and organization of online social network.
-The problem of community detection has been in intensively researched for more than a half of the century.
-In social networks , communities identify groups of users with strong connections which means they may have similiar social relationship.
-Several metrics have been proposed as indicators of the quality of a community.
-However, social networks, like Wechat, people may have connections online but never meet in the real-life. 
 For example, a housing agency comes to your company, and add every one of your collegues as Wechat friend, 
 if  only topology structure of graph without information of nodes is used, it is difficult to kick the agency out of your collegue group .
+Here, location information of users in social networks can be introduced 
+and it can help with the main goal of improving the accuracy of detection results based on ground truth, 
+i,e, when location information is used,
+it is obvious the housing agency doesn't share poi(point of interest) of your company so often, 
+but it may be asked whether the location information at a set of sample times 
+provide enough evidence for reliable community detection,
+in other word, 
+how much does the observation of locations and colocations of individuals contribute?
+
+In preliminary studies, 
+\cite and \cite have studied on relationship between social network structure and geographic distance.
+However, those studies do not use location information to improve the results of detection
+\cite proposed a community detection method combined network structrue with geographical location.
+They redefined every edge as a weighted one and the weights are derived from similarity score 
+focused on location-tagged networks, 
+they take a place as the location of user home
+and based on modularity 
+
 In this paper, we propose a new community detection metric called Location-Based Community Clustering (LBCC) 
 which is supposed to detect communities which is connected in real life, and it fulfills a set of minimum structural properties ,which should
 be  fulfilled by any community detection metric for social networks, ensure  that the communities are cohesive, structured and well defined.
