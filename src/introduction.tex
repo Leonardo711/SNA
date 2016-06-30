@@ -11,13 +11,40 @@ in other word,
 how much does the observation of locations and colocations of individuals contribute?
 
 In preliminary studies, 
-\cite and \cite have studied on relationship between social network structure and geographic distance.
+\cite{} and \cite{} have studied on relationship between social network structure and geographic distance.
 However, those studies do not use location information to improve the results of detection
-\cite proposed a community detection method combined network structrue with geographical location.
+
+We observe location information have impact on connections between social networks,
+and the impact can be quantified. In this paper,
+we propose a community detection algorithm which take POI data of users into consideration
+to improve the quality of detection result.
+
+
+
+
+In practical situations only limited information is availble to determine these communities,
+We observe that the nodes in a tightly connected community tend to be more close to each other in
+space as well.
+Location can have different impact on social networks and the impact can be quantified and used 
+in community detection.
+
+
+
+
+
+\cite{} proposed a community detection method combined network structrue with geographical location.
 They redefined every edge as a weighted one and the weights are derived from similarity score 
 focused on location-tagged networks, 
 they take a place as the location of user home
 and based on modularity 
+
+
+
+
+
+
+
+
 
 In this paper, we propose a new community detection metric called Location-Based Community Clustering (LBCC) 
 which is supposed to detect communities which is connected in real life, and it fulfills a set of minimum structural properties ,which should
