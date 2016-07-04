@@ -18,7 +18,7 @@ class node(object):
         return _entroy
     
 class edge(object):
-    def __init__(self, node1, node2):
+    def __init__(self, node1, node2, alpha):
         '''
             node1, node2 : node
         '''
@@ -28,6 +28,7 @@ class edge(object):
         print(self.POI_sum)
         self.count = sum(self.POI_sum.values())
         self.entrSim = self.entroySimilarity()
+		self.structSim = self.structSimilarity(alpha)
 
     def combinePOI(self):
         poiSet = copy.deepcopy(self.node1.POI)
@@ -45,6 +46,11 @@ class edge(object):
         log_sim = self.node1.entroy + self.node2.entroy - _entroyEdge
         sim = math.exp(log_sim/self.count)
         return sim
+
+	def structSimilarity(self):
+		return alpha + (1-alpha) * self.entrSim
+		
+		
 
 if __name__ == "__main__":
     POIa = {1:30, 2:4}
