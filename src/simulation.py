@@ -35,18 +35,18 @@ class entroySimilarity(object):
         return 2 * entroy_AB - entroy_A - entroy_B
 
 def simulation():
-    len_A = random.randint(9,100)
-    len_B = random.randint(9,100)
+    len_A =30 #random.randint(9,100)
+    len_B =30 #random.randint(9,100)
     dict_A = {}
     dict_B = {}
     while len(dict_A)<len_A:
-        a = random.randint(1,500)
+        a = random.randint(1,30)
         va = random.randint(1,31)
         if a not in dict_A:
            dict_A[a] = va
     
     while len(dict_B)<len_B:
-        b = random.randint(1,500)
+        b = random.randint(1,30)
         vb = random.randint(1,31)
         if b not in dict_B:
            dict_B[b] = vb
