@@ -47,8 +47,8 @@ class edge(object):
         sim = math.exp(log_sim/self.count)
         return sim
 
-	def structSimilarity(self):
-		return alpha + (1-alpha) * self.entrSim
+    def structSimilarity(self):
+            return alpha + (1-alpha) * self.entrSim
 		
 		
 
