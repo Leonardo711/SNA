@@ -1,5 +1,6 @@
 import math
 import copy
+import networkx as nx
 
 class node(object):
     def __init__(self, number, POI):
@@ -28,7 +29,8 @@ class edge(object):
         print(self.POI_sum)
         self.count = sum(self.POI_sum.values())
         self.entrSim = self.entroySimilarity()
-		self.structSim = self.structSimilarity(alpha)
+        self.alpha = alpha
+        self.structSim = self.structSimilarity()
 
     def combinePOI(self):
         poiSet = copy.deepcopy(self.node1.POI)
@@ -48,19 +50,36 @@ class edge(object):
         return sim
 
     def structSimilarity(self):
-            return alpha + (1-alpha) * self.entrSim
-		
-		
+            return self.alpha + (1-self.alpha) * self.entrSim
 
-if __name__ == "__main__":
-    POIa = {1:30, 2:4}
-    POIb = {1:20, 2:1}
-    no_a = 1
-    no_b = 2
-    node_a = node(no_a, POIa)
-    node_b = node(no_b, POIb)
-    edge_ab = edge(node_a,node_b)
-    print(edge_ab.entrSim)
+def deriveWeightedGraph(unweight, POIList, alpha):
+    '''
+        unweight: nx.Graph
+        POIList : List
+    '''
+        for nodea, nodeb in unweight.edges():
+            POIa = POIList[nodea]
+            POIb = POIList[nodeb]
+            node_a = node(nodea, POIa)
+            node_b = node(nodeb, POIb)
+            edge_ab = edge(node_a, node_b,alpha)
+            unweight[nodea][nodeb] = {'weight': edge_ab.structSim}
+            unweight[nodeb][nodea] = {'weight': edge_ab.structSim}
+            
+
+
+
+
+#if __name__ == "__main__":
+#    POIa = {1:30, 2:4}
+#    POIb = {1:20, 2:1}
+#    no_a = 1
+#    no_b = 2
+#    node_a = node(no_a, POIa)
+#    node_b = node(no_b, POIb)
+#    edge_ab = edge(node_a,node_b, 0.8)
+#    print(edge_ab.entrSim)
+#    print(edge_ab.structSim)
 
 
         
