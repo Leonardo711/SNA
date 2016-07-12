@@ -1,6 +1,9 @@
 import math
+import sys
+from functools import reduce
+import os
 import copy
-import networkx as nx
+import json
 
 class node(object):
     def __init__(self, number, POI):
@@ -26,7 +29,7 @@ class edge(object):
         self.node1 = node1
         self.node2 = node2
         self.POI_sum  = self.combinePOI()
-        print(self.POI_sum)
+        #print(self.POI_sum)
         self.count = sum(self.POI_sum.values())
         self.entrSim = self.entroySimilarity()
         self.alpha = alpha
@@ -44,7 +47,7 @@ class edge(object):
     def entroySimilarity(self):
         _entroyEdge = sum([a * (math.log(self.count) - math.log(a))
                 for a in self.POI_sum.values()])
-        print("_entroyEdge %f" %_entroyEdge)
+        #print("_entroyEdge %f" %_entroyEdge)
         log_sim = self.node1.entroy + self.node2.entroy - _entroyEdge
         sim = math.exp(log_sim/self.count)
         return sim
@@ -52,25 +55,43 @@ class edge(object):
     def structSimilarity(self):
             return self.alpha + (1-self.alpha) * self.entrSim
 
-def deriveWeightedGraph(unweight, POIList, alpha):
-    '''
-        unweight: nx.Graph
-        POIList : List
-    '''
-        for nodea, nodeb in unweight.edges():
-            POIa = POIList[nodea]
-            POIb = POIList[nodeb]
-            node_a = node(nodea, POIa)
-            node_b = node(nodeb, POIb)
-            edge_ab = edge(node_a, node_b,alpha)
-            unweight[nodea][nodeb] = {'weight': edge_ab.structSim}
-            unweight[nodeb][nodea] = {'weight': edge_ab.structSim}
-            
+           
+
+def calculateWeight(PoiPath, networkPath, alpha):
+    with open(PoiPath, 'r') as fin:
+        user_poi_count = json.load(fin)
+    line = 1
+    with open(networkPath,'r',encoding= 'utf-8') as rawFile:
+        proPath = os.path.dirname(PoiPath) + '/weighted_network_'+str(alpha)+'.txt'
+        with open(proPath, 'w', encoding = 'utf-8') as output:
+            content = rawFile.readline().strip().split('\t')
+            while len(content)==2:
+                print("line: %d" %line)
+                line += 1
+                no_a, no_b = content
+                if no_a not in user_poi_count or no_b not in user_poi_count:
+                    content.append(alpha)
+                else:
+                    POIa = user_poi_count[no_a]
+                    POIb = user_poi_count[no_b]
+                    node_a = node(no_a, POIa)
+                    node_b = node(no_b, POIb)
+                    edge_ab = edge(node_a,node_b, alpha)
+                    content.append(edge_ab.structSim)
+                outStr = reduce(lambda x,y:str(x)+'\t'+str(y), content)
+                print(outStr, file = output)
+                content = rawFile.readline().strip().split('\t')
 
 
+def main(alpha):
+    PoiPath = "/home/leo/Documents/Thesis/user_poi_count.json"
+    networkPath = "/home/leo/Documents/Thesis/unweight_network.txt"
+    calculateWeight(PoiPath, networkPath, alpha)
 
 
-#if __name__ == "__main__":
+if __name__ == "__main__":
+    alpha = float(sys.argv[1])
+    main(alpha)
 #    POIa = {1:30, 2:4}
 #    POIb = {1:20, 2:1}
 #    no_a = 1
